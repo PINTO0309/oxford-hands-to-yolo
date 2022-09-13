@@ -119,12 +119,15 @@ if __name__ == '__main__':
         image_total += 1
         print(f'image_path: {image_path} Box number: {box_total} Image number: {image_total}')
 
-        if enable_image_save:
-            cv2.imwrite(save_file_path, image)
-
         if enable_image_view:
             cv2.imshow('Viewer', image)
 
         key = cv2.waitKey(0)
         if key == 27:  # ESC
             break
+        elif key == 100: # d
+            continue
+
+        if enable_image_save:
+            os.makedirs(os.path.dirname(save_file_path), exist_ok=True)
+            cv2.imwrite(save_file_path, image)
