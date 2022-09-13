@@ -1,10 +1,10 @@
-from __future__ import division 
+from __future__ import division
 import sys
 import scipy.io as sio
 import cv2
 from PIL import Image, ImageDraw, ImageFont
-import numpy as np 
-import os, glob 
+import numpy as np
+import os, glob
 import datetime
 
 debug = False
@@ -38,7 +38,7 @@ def hms_string(sec_elapsed):
 
 def writeAnnotationFiles(set_name, root_path, write_image_boxes = False, save_images_with_boxes = False, show_image = False):
     firstFile = True
-    
+
     processMax = 100000
     processed = 0
 
@@ -67,7 +67,7 @@ def writeAnnotationFiles(set_name, root_path, write_image_boxes = False, save_im
             break
 
         filename = file.split(".")[0]
-        
+
         if(debug):
             print(file)
 
@@ -120,10 +120,10 @@ def writeAnnotationFiles(set_name, root_path, write_image_boxes = False, save_im
 
                 abs_intersect_x = intersect_x / width
                 abs_intersect_y = intersect_y / height
-                
+
                 if(debug):
                     print("0 %f %f %f %f" %(abs_intersect_x, abs_intersect_y, absX, absY))
-                
+
                 if(not firstBox):
                     hs.write("\n")
 
@@ -132,7 +132,7 @@ def writeAnnotationFiles(set_name, root_path, write_image_boxes = False, save_im
                 if(firstBox):
                     firstBox = False
 
-            hs.close() 
+            hs.close()
 
             if(save_images_with_boxes):
                 rgb_img = pil_image.convert("RGB")
@@ -144,9 +144,9 @@ def writeAnnotationFiles(set_name, root_path, write_image_boxes = False, save_im
 
             pil_image.close()
             processed = processed + 1
-            
+
             if(not firstFile):
-                set_info_file.write("\n")    
+                set_info_file.write("\n")
 
             set_info_file.write("data/obj/%s/%s.jpg" %(set_name, filename))
 
