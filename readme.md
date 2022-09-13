@@ -35,3 +35,7 @@ validation.txt
 
 ## Bounding Boxes Viewer
 https://github.com/waittim/draw-YOLO-box
+
+```
+python draw_box.py --enable_image_view
+```
