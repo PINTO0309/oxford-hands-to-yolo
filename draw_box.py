@@ -105,7 +105,9 @@ if __name__ == '__main__':
     image_names = open(name_list_path).read().strip().split()
     box_total = 0
     image_total = 0
-    for image_name in image_names:
+
+    while True:
+        image_name = image_names[image_total]
         txt_path  = os.path.join(label_folder, f'{image_name}.txt'%())
         image_path = os.path.join( raw_images_folder, f'{image_name}.jpg')
         save_file_path = os.path.join(save_images_folder, f'{image_name}.jpg')
@@ -115,9 +117,6 @@ if __name__ == '__main__':
             classes,
             colors,
         )
-        box_total += box_num
-        image_total += 1
-        print(f'image_path: {image_path} Box number: {box_total} Image number: {image_total}')
 
         if enable_image_view:
             cv2.imshow('Viewer', image)
@@ -125,9 +124,18 @@ if __name__ == '__main__':
         key = cv2.waitKey(0)
         if key == 27:  # ESC
             break
-        elif key == 100: # d
-            continue
 
-        if enable_image_save:
-            os.makedirs(os.path.dirname(save_file_path), exist_ok=True)
-            cv2.imwrite(save_file_path, image)
+        elif key == 100: # d
+            os.remove(save_file_path)
+            image_total += 1
+
+        elif key == 106: # j
+            image_total -= 1
+
+        else:
+            if enable_image_save:
+                os.makedirs(os.path.dirname(save_file_path), exist_ok=True)
+                cv2.imwrite(save_file_path, image)
+            box_total += box_num
+            image_total += 1
+
