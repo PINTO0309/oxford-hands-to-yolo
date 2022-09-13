@@ -54,13 +54,6 @@ def draw_box_on_image(
         x2 = round(x_center+w/2)
         y2 = round(y_center+h/2)
 
-        # if class_idx == 0:
-        #     draw_people_tangle = cv2.rectangle(image, (x1,y1),(x2,y2),(0,0,255),2)
-        #     cv2.imwrite(save_file_path,draw_people_tangle)
-        # elif class_idx == 1:
-        #     draw_car_tangle = cv2.rectangle(image,(x1,y1),(x2,y2),(0,255,0),2)
-        #     cv2.imwrite(save_file_path,draw_car_tangle)
-
         plot_one_box([x1,y1,x2,y2], image, color=colors[class_idx], label=classes[class_idx], line_thickness=None)
         box_number += 1
 
