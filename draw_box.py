@@ -5,7 +5,7 @@ import os
 import sys
 import random
 import argparse
-
+from natsort import natsorted
 
 label_folder = 'hand_dataset/training_dataset/training_data/new_annotations/'
 raw_images_folder = 'hand_dataset/training_dataset/training_data/images/'
@@ -69,14 +69,11 @@ def draw_box_on_image(
 
 
 def make_name_list(raw_images_folder, name_list_path):
-    image_file_list = os.listdir(raw_images_folder)
-    text_image_name_list_file=open(name_list_path,'w')
-
-    for  image_file_name in image_file_list:
-        image_name,file_extend = os.path.splitext(image_file_name)
-        text_image_name_list_file.write(image_name+'\n')
-
-    text_image_name_list_file.close()
+    image_file_list = natsorted(os.listdir(raw_images_folder))
+    with open(name_list_path, 'w') as text_image_name_list_file:
+        for  image_file_name in image_file_list:
+            image_name, file_extend = os.path.splitext(image_file_name)
+            text_image_name_list_file.write(image_name+'\n')
 
 
 if __name__ == '__main__':
@@ -108,6 +105,9 @@ if __name__ == '__main__':
 
     while True:
         image_name = image_names[image_total]
+        if 'DS_Store' in image_name:
+            image_total += 1
+            continue
         txt_path  = os.path.join(label_folder, f'{image_name}.txt'%())
         image_path = os.path.join( raw_images_folder, f'{image_name}.jpg')
         save_file_path = os.path.join(save_images_folder, f'{image_name}.jpg')
